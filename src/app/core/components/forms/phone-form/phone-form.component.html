@@ -1,0 +1,81 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>{{ pageTitle }}</h1>
+        </div>
+        <div class="col-sm">
+            <div class="row">
+                <div class="col-sm">
+                    <span class="align-right">
+                        <button [routerLink]="'/phone/details/' + phone?.id()" mat-icon-button
+                            matTooltip="Details anzeigen" *ngIf="this.activatedRoute.snapshot.params.id">
+                            <mat-icon>preview</mat-icon>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="row" [formGroup]="phoneForm">
+        <div class="col-12 mb-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Bezeichnung</mat-label>
+                <input matInput formControlName="name">
+                <mat-hint>Pflichtfeld</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-12 mb-3">
+            <mat-form-field appearance="outline">
+                <mat-label> Tarif</mat-label>
+                <input matInput formControlName="tariff">
+                <mat-hint>Pflichtfeld</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6 mb-3">
+            <mat-form-field class="datetime-form-field" appearance="outline">
+                <mat-label>Vertragszeitraum</mat-label>
+                <mat-date-range-input [rangePicker]="rangePicker">
+                    <input matStartDate placeholder="Vertragsbeginn" formControlName="contractStart">
+                    <input matEndDate placeholder="Vertragsende" formControlName="subsidyEnd">
+                </mat-date-range-input>
+                <mat-hint>TT/MM/JJJJ – TT/MM/JJJJ</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+                <mat-date-range-picker #rangePicker></mat-date-range-picker>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6 mb-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Telefonnummer</mat-label>
+                <input matInput formControlName="phoneNumber">
+                <mat-hint>Pflichtfeld</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6 mb-3">
+            <mat-form-field appearance="outline">
+                <mat-label>IMEI</mat-label>
+                <input matInput formControlName="imei">
+                <mat-hint>Pflichtfeld</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-12 col-md-6 mb-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Sim-Nummer</mat-label>
+                <input matInput formControlName="simNumber">
+                <mat-hint>Pflichtfeld</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <button name="btn-add-phone" mat-raised-button (click)="save()"
+                [disabled]="phoneForm.invalid">Speichern</button>
+        </div>
+        <div class="col-6 text-end" *ngIf="!phone?.deletedAt">
+            <button name="btn-remove-phone" color="warn" *ngIf="this.activatedRoute.snapshot.params.id"
+                (click)="remove()" mat-raised-button class="btn btn-danger">Löschen</button>
+        </div>
+        <div class="col-6 text-end" *ngIf="phone?.deletedAt">
+            <span class="mx-3">Gelöscht am {{ phone.deletedAt | date }}</span>
+            <button name="btn-remove-phone" *ngIf="this.activatedRoute.snapshot.params.id" (click)="restore()"
+                mat-raised-button>Wiederherstellen</button>
+        </div>
+    </form>
+</div>

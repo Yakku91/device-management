@@ -1,0 +1,68 @@
+<div class="container">
+    <h1>Geräte</h1>
+    <form class="row" [formGroup]="searchForm">
+        <mat-form-field>
+            <mat-label>Gerät, Benutzer, Seriennummer, Airbusnummer, Neustanummer, Gerätetyp</mat-label>
+            <input matInput formControlName="searchField" (keyup)="applyFilter()"
+                placeholder="Bsp. Fujitsu Lifebook E746" #input>
+        </mat-form-field>
+    </form>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+                <td mat-cell *matCellDef="let element, let i = index">{{i + 1}}</td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let element">{{element?.name}}</td>
+            </ng-container>
+            <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Gerätetyp</th>
+                <td mat-cell *matCellDef="let element">{{element?.type}}</td>
+            </ng-container>
+            <ng-container matColumnDef="user">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Benutzer</th>
+                <td mat-cell *matCellDef="let element">{{element?.user?.name}}</td>
+            </ng-container>
+            <ng-container matColumnDef="location">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Ort</th>
+                <td mat-cell *matCellDef="let element">{{element?.location}}</td>
+            </ng-container>
+            <ng-container matColumnDef="deletedAt">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Gelöscht</th>
+                <td mat-cell *matCellDef="let element">{{element?.deletedAt | date:'yyyy-MM-dd HH:mm'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef>
+                    <ng-container>Ändern</ng-container>
+                </th>
+                <td mat-cell *matCellDef="let element">
+                    <ng-container>
+                        <button mat-icon-button [routerLink]="'/device/edit/' + element?.id()">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </ng-container>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="details">
+                <th mat-header-cell *matHeaderCellDef> Details </th>
+                <td mat-cell *matCellDef="let element">
+                    <button [routerLink]="'/device/details/' + element?.id()" mat-icon-button>
+                        <mat-icon>preview</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell py-3 px-3" colspan="4">
+                    <span>Kein Treffer für: {{input.value}}</span>
+                </td>
+            </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+        </mat-paginator>
+    </div>
+</div>

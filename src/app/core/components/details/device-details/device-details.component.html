@@ -1,0 +1,40 @@
+<mat-list>
+    <div class="row">
+        <div class="col-md-6">
+            <mat-list-item>
+                <span matListItemTitle>Gerätetyp</span>
+                <span matListItemLine>{{ device?.type || 'keine Angabe' }}</span>
+            </mat-list-item>
+        </div>
+        <div class="col-md-6">
+            <mat-list-item>
+                <span matListItemTitle>Standort</span>
+                <span matListItemLine>{{ device?.location || 'keine Angabe' }}</span>
+            </mat-list-item>
+        </div>
+        <div class="col-md-6">
+            <mat-list-item>
+                <span matListItemTitle>Neusta-Nummer</span>
+                <span matListItemLine>{{ device?.neustaNumber || 'keine Angabe' }}</span>
+            </mat-list-item>
+        </div>
+        <div class="col-md-6">
+            <mat-list-item>
+                <span matListItemTitle>Seriennummer</span>
+                <span matListItemLine>{{ device?.serialNumber || 'keine Angabe' }}</span>
+            </mat-list-item>
+        </div>
+        <div class="col-md-6">
+            <mat-list-item>
+                <span matListItemTitle>Airbus-Nummer</span>
+                <span matListItemLine>{{ device?.airbusNumber || 'keine Angabe' }}</span>
+            </mat-list-item>
+        </div>
+        <div class="col-md-6" *ngIf="device?.deletedAt">
+            <mat-list-item>
+                <span matListItemTitle>Gelöscht am</span>
+                <span matListItemLine>{{ device?.deletedAt | date:'yyyy-MM-dd HH:mm'}}</span>
+            </mat-list-item>
+        </div>
+    </div>
+</mat-list>

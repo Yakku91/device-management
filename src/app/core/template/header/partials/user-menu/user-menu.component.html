@@ -1,0 +1,44 @@
+<div class="d-flex align-items-center">
+  <ng-container *ngIf="isAdmin">
+    <button mat-button [matMenuTriggerFor]="adminMenu" aria-label="Verwaltung">
+      <mat-icon>settings</mat-icon>
+      <span>Verwaltung</span>
+    </button>
+    <mat-menu #adminMenu="matMenu">
+      <button mat-menu-item [routerLink]="'/admin/phone/add'">
+        <mat-icon>smartphone</mat-icon>
+        <span>Handy hinzufügen</span>
+      </button>
+      <button mat-menu-item [routerLink]="'/admin/device/add'">
+        <mat-icon>devices</mat-icon>
+        <span>Gerät hinzufügen</span>
+      </button>
+      <button mat-menu-item [routerLink]="'/admin/users'">
+        <mat-icon>group</mat-icon>
+        <span>Benutzerliste</span>
+      </button>
+      <button mat-menu-item [routerLink]="'/admin/user/add'">
+        <mat-icon>person_add</mat-icon>
+        <span>Benutzer hinzufügen</span>
+      </button>
+      <button mat-menu-item (click)="showImportDialog()">
+        <mat-icon>publish</mat-icon>
+        <span>Excel-Datei importieren</span>
+      </button>
+    </mat-menu>
+  </ng-container>
+  <button mat-button [matMenuTriggerFor]="menu" aria-label="Menu">
+    <span>{{ firstname }}</span>
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <a [href]="'/profile/edit/' + currentUserId" mat-menu-item>
+      <mat-icon>manage_accounts</mat-icon>
+      <span>Benutzerdaten</span>
+    </a>
+    <button mat-menu-item (click)="logOut()">
+      <mat-icon>logout</mat-icon>
+      <span>Abmelden</span>
+    </button>
+  </mat-menu>
+</div>

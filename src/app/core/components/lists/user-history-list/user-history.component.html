@@ -1,0 +1,14 @@
+<table class="table" *ngIf="userHistories?.length > 0">
+  <thead>
+    <td>Benutzer</td>
+    <td>Von</td>
+    <td>Bis</td>
+  </thead>
+  <tbody>
+    <tr *ngFor="let userHistory of userHistories">
+      <td>{{ userHistory?.userName }}</td>
+      <td>{{ userHistory?.start | date:'dd.MM.yyyy HH:mm'}}</td>
+      <td>{{ userHistory?.end | date:'dd.MM.yyyy HH:mm'}}</td>
+    </tr>
+  </tbody>
+</table>

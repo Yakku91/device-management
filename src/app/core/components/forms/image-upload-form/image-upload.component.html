@@ -1,0 +1,14 @@
+<div class="my-4 mx-4">
+    <h1 class="my-md-4">Bilder hochladen</h1>
+    <form class="row">
+        <div class="col-12 mb-3">
+            <input mat-input #image type="file" multiple accept="image/*" (change)="onFilesSelected($event)">
+        </div>
+        <div class="col-6">
+            <button mat-button (click)="onNoClick()">Abbrechen</button>
+        </div>
+        <div class="col-6 text-end">
+            <button mat-button [disabled]="!image.value" (click)="saveImages()">Hochladen</button>
+        </div>
+    </form>
+</div>

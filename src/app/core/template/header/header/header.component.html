@@ -1,0 +1,33 @@
+<header>
+  <div class="container">
+    <nav class="navbar navbar-expand-md">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+          aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">Nasha</a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <ul class="navbar-nav me-auto mb-lg-0 mt-2">
+            <li class="nav-item">
+              <a href="'/'" class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li *ngIf="isUserLoggedIn()" class="nav-item">
+              <button [routerLink]="'/phones'" class="nav-link">Handys</button>
+            </li>
+            <li *ngIf="isUserLoggedIn()" class="nav-item">
+              <a [routerLink]="'/devices'" class="nav-link" href="#">Geräte</a>
+            </li>
+          </ul>
+          <div *ngIf="!isUserLoggedIn()" class="d-flex">
+            <button mat-button [routerLink]="'/login'">
+              <mat-icon>login</mat-icon>
+              <span>Anmelden</span>
+            </button>
+          </div>
+          <app-user-menu *ngIf="isUserLoggedIn()"></app-user-menu>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>

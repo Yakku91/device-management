@@ -1,0 +1,129 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+@include mat.core();
+
+$NashaWebApp-primary: mat.define-palette(mat.$indigo-palette);
+$NashaWebApp-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$NashaWebApp-warn: mat.define-palette(mat.$red-palette);
+
+$NashaWebApp-theme: mat.define-light-theme((
+  color: (
+    primary: $NashaWebApp-primary,
+    accent: $NashaWebApp-accent,
+    warn: $NashaWebApp-warn,
+  )
+));
+
+@include mat.all-component-themes($NashaWebApp-theme);
+
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.form-signin {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.login-container{
+    height: 100vh;
+    align-items: center;
+    display: flex;
+}
+
+header{
+  margin-bottom: 30px;
+}
+/*Table and Filter*/
+table {
+  width: 100%;
+}
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+.add-button-container {
+  padding-bottom: 16px;
+}
+
+.add-button + .add-button {
+  margin-left: 8px;
+}
+.datetime-form-field {
+  margin-right: 20px;
+}
+.datetime-form-field td, th{ 
+  width: 10%;
+}
+.card-link {
+  cursor: pointer; /* Zeigerfinger-Mauszeiger für den Link */
+}
+.card-link:hover {
+  cursor: pointer; /* Ändert den Mauszeiger beim Überfahren des Links */
+}
+.no-scroll-dialog {
+  overflow: hidden !important;
+}
+
+/* styles.css oder deine Stylesheet-Datei */
+.square-jelly-box-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  position: relative;
+}
+
+.square-jelly-box-spinner div {
+  width: 15px;
+  height: 15px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin: 0 5px;
+  animation: square-jelly-box-spinner-animation 0.6s infinite ease-in-out;
+}
+
+.square-jelly-box-spinner div:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.square-jelly-box-spinner div:nth-child(2) {
+  animation-delay: -0.2s;
+}
+
+.square-jelly-box-spinner div:nth-child(3) {
+  animation-delay: -0.4s;
+}
+
+@keyframes square-jelly-box-spinner-animation {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.5);
+  }
+}
+.align-right {
+  float:right;
+  align-self: center;
+}
+.card-h3, .card-h5{
+  margin: 0px 7px 7px 0px !important;
+  display: inline;
+}
+.card-body-margin{
+  margin: 10px
+}
+.mat-mdc-tab-body-content{
+  overflow: hidden !important;
+}
+.mat-mdc-tab-body {
+  margin-top:20px;
+}

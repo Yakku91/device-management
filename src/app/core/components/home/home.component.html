@@ -1,0 +1,72 @@
+<div class="container">
+    <div class="row">
+        <mat-tab-group>
+            <mat-tab label="Meine Handys">
+                <div class="container">
+                    <div *ngIf="myPhones" class="row">
+                        <div class="col-12 col-sm-6 col-md-4 mt-4" *ngFor="let phone of myPhones">
+                            <a [routerLink]="'/phone/details/' + phone?.id()">
+                                <div class="card">
+                                    <img *ngIf="phone?.images?.length < 1" src="../../../../assets/no-image.JPG"
+                                        class="card-img-top img-fluid">
+                                    <img *ngIf="phone?.images" [src]="phone?.images[0]?._url"
+                                        class="card-img-top img-fluid">
+                                    <div class="card-body">
+                                        <h4 class="card-title">{{ phone?.name }}</h4>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Meine Geräte">
+                <div class="container">
+                    <div *ngIf="myDevices" class="row">
+                        <div class="col-12 col-sm-6 col-md-4 mt-4" *ngFor="let device of myDevices">
+                            <a [routerLink]="'/device/details/' + device?.id()">
+                                <div class="card">
+                                    <img *ngIf="device?.images?.length < 1" src="../../../../assets/no-image.JPG"
+                                        class="card-img-top img-fluid">
+                                    <img *ngIf="device?.images" [src]="device?.images[0]?._url"
+                                        class="card-img-top img-fluid">
+                                    <div class="card-body">
+                                        <h4 class="card-title">{{ device?.name }}</h4>
+                                        <p class="card-text">{{ device?.type }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="History">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Gerät</td>
+                            <td>Von</td>
+                            <td>Bis</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let userHistory of userHistories">
+                            <td *ngIf="userHistory.device">
+                                <a [routerLink]="'/device/details/' + userHistory?.device?.id">
+                                    {{ userHistory.device.get('name') }}
+                                </a>
+                            </td>
+                            <td *ngIf="userHistory.phone">
+                                <a [routerLink]="'/phone/details/' + userHistory?.phone?.id">
+                                    {{ userHistory.phone.get('name') }}
+                                </a>
+                            </td>
+                            <td>{{ userHistory?.start | date }}</td>
+                            <td>{{ userHistory?.end | date }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

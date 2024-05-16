@@ -1,0 +1,61 @@
+<div class="container">
+    <h1>Handys</h1>
+    <form class="row" [formGroup]="searchForm">
+        <mat-form-field>
+            <mat-label>Gerätename, Benutzer, Rufnummer, Imei</mat-label>
+            <input matInput formControlName="searchField" (keyup)="applyFilter()" placeholder="Bsp. iPhone 14"
+                #input>
+        </mat-form-field>
+    </form>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element, let i = index"> {{i + 1}} </td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element?.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="tariff">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Tariff </th>
+                <td mat-cell *matCellDef="let element"> {{element?.tariff}} </td>
+            </ng-container>
+            <ng-container matColumnDef="user">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Benutzer</th>
+                <td mat-cell *matCellDef="let element">{{element?.user?.name}}</td>
+            </ng-container>
+            <ng-container matColumnDef="deletedAt">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Gelöscht</th>
+                <td mat-cell *matCellDef="let element"> {{element?.deletedAt | date:'yyyy-MM-dd HH:mm'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="details">
+                <th mat-header-cell *matHeaderCellDef>Details </th>
+                <td mat-cell *matCellDef="let element">
+                    <button [routerLink]="'/phone/details/' + element?.id()" mat-icon-button>
+                        <mat-icon>preview</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef>Ändern</th>
+                <td mat-cell *matCellDef="let element">
+                    <button [routerLink]="'/phone/edit/' + element?.id()" mat-icon-button>
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell py-3 px-3" colspan="4">
+                    <span>Kein Treffer für: {{input?.value}}</span>
+                </td>
+            </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </div>
+</div>

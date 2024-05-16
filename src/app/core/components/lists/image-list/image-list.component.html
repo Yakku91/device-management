@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-12 col-sm-6 col-md-4 mt-4 mb-4" *ngFor="let image of entity?.images  let i = index;">
+        <div class="card card-link">
+            <div class="card-body">
+                <a (click)="showImageInLightBox(image._url)"><img [lazyLoad]="image._url"
+                        class="card-img-top img-fluid"></a>
+            </div> <button mat-icon-button color="primary" class="green-button align-right" (click)="delete(i)"
+                matTooltip="Löschen">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

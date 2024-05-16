@@ -1,0 +1,46 @@
+<mat-list>
+    <div class="row">
+        <div class="col">
+            <mat-list-item>
+                <span matListItemTitle>Tariff</span>
+                <span matListItemLine>{{ phone?.tariff || 'keine Angabe' }}</span>
+            </mat-list-item>
+        </div>
+        <div class="col-md-6">
+            <mat-list-item>
+                <span matListItemTitle>Vertragsbeginn</span>
+                <span matListItemLine>{{ phone?.contractStart | date }}</span>
+            </mat-list-item>
+        </div>
+        <div class="col-md-6">
+            <mat-list-item>
+                <span matListItemTitle>Vertragsende</span>
+                <span matListItemLine>{{ phone?.subsidyEnd | date }}</span>
+            </mat-list-item>
+        </div>
+        <div class="col-md-6">
+            <mat-list-item>
+                <span matListItemTitle>SIM-Nummer</span>
+                <span matListItemLine>{{ phone?.simNumber || 'keine Angabe' }}</span>
+            </mat-list-item>
+        </div>
+        <div class="col-md-6">
+            <mat-list-item>
+                <span matListItemTitle>IMEI</span>
+                <span matListItemLine>{{ phone?.imei || 'keine Angabe' }}</span>
+            </mat-list-item>
+        </div>
+        <div class="col-md-6">
+            <mat-list-item>
+                <span matListItemTitle>Telefonnummer</span>
+                <span matListItemLine>{{ phone?.phoneNumber || 'keine Angabe' }}</span>
+            </mat-list-item>
+        </div>
+        <div class="col-md-6" *ngIf="phone?.deletedAt">
+            <mat-list-item>
+                <span matListItemTitle>Gelöscht am</span>
+                <span matListItemLine>{{ phone?.deletedAt | date:'yyyy-MM-dd HH:mm'}}</span>
+            </mat-list-item>
+        </div>
+    </div>
+</mat-list>

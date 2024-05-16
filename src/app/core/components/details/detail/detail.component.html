@@ -1,0 +1,86 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>{{ entity?.name }}</h1>
+        </div>
+        <div class="col-sm">
+            <div class="row">
+                <div class="col-sm">
+                    <span class="align-right">
+                        <button mat-icon-button *ngIf="!entity?.user && !entity?.deletedAt" (click)="setCurrentUser()"
+                            [matTooltip]="'Übernehmen'">
+                            <mat-icon>add_circle</mat-icon>
+                        </button>
+                        <button mat-icon-button *ngIf="isCurrent && entity?.user" (click)="popUser()" [matTooltip]="'Abgeben'">
+                            <mat-icon>remove_circle</mat-icon>
+                        </button>
+                    </span>
+                    <span class="align-right">
+                        <button mat-icon-button (click)="generateQRCode()" matTooltip="QRCode generieren">
+                            <mat-icon>qr_code</mat-icon>
+                        </button>
+                        <button *ngIf="isAdmin" mat-icon-button [routerLink]="'/' + this.activatedRoute.snapshot.url[0].path + '/edit/' + this.activatedRoute.snapshot.params.id"
+                        [matTooltip]="'Ändern'">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <mat-tab-group animationDuration="1000ms">
+            <mat-tab label="Details">
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <app-device-details *ngIf="this.activatedRoute.snapshot.url[0].path === 'device'"
+                                    [device]="entity"></app-device-details>
+                                <app-phone-details *ngIf="this.activatedRoute.snapshot.url[0].path === 'phone'"
+                                    [phone]="entity"></app-phone-details>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="isAdmin && !entity?.deletedAt">
+                            <div class="col col-xl-6">
+                                <form [formGroup]="userListForm">
+                                    <mat-form-field>
+                                        <mat-label>Benutzer auswählen</mat-label>
+                                        <input #input type="text" placeholder="Name angeben" matInput
+                                            formControlName="userTextBox" [matAutocomplete]="auto"
+                                            (input)="filter(input.value)" (focus)="filter(input.value)">
+                                        <mat-autocomplete requireSelection #auto="matAutocomplete">
+                                            <mat-option [value]="undefined" (onSelectionChange)="popUser()">
+                                                Kein Benutzer</mat-option>
+                                            <mat-option *ngFor="let user of filteredUsers" [value]="user.name"
+                                                (onSelectionChange)="setUser(user)">{{ user?.name }}</mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" *ngIf="entity?.images?.length > 0">
+                        <img [src]="entity?.images[0]._url" width="100%">
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Bilder">
+                <div class="d-flex justify-content-between bg-white">
+                    <h3 class="my-2">Bilder hinzufügen</h3>
+                    <button mat-icon-button (click)="openUploadDialog()"
+                        matTooltip="Anmerkung hinzufügen">
+                        <mat-icon>add_a_photo</mat-icon>
+                    </button>
+                </div>
+                <app-image-list [entity]="entity"></app-image-list>
+            </mat-tab>
+            <mat-tab label="Anmerkungen"><!--Bilder-->
+                <app-note-list [notes]="notes" [entity]="entity"></app-note-list>
+            </mat-tab>
+            <mat-tab label="Benutzer-History">
+                <app-user-history [userHistories]="userHistories"></app-user-history>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="my-4 mx-4">
+    <h1 class="my-md-4">{{ pageTitle }}</h1>
+    <form class="row" [formGroup]="noteForm">
+        <div *ngIf="note" class="col-12 mb-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Überschrift</mat-label>
+                <input matInput formControlName="title">
+                <mat-hint>Pflichtfeld</mat-hint>
+            </mat-form-field>
+        </div>
+        <div *ngIf="note" class="col-12 mb-3">
+            <mat-form-field appearance="outline">
+                <mat-label> Anmerkung</mat-label>
+                <textarea matInput formControlName="note"></textarea>
+                <mat-hint>Pflichtfeld</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <button mat-button (click)="onNoClick()">Abbrechen</button>
+        </div>
+        <div class="col-6 text-end">
+            <button mat-button [disabled]="noteForm.invalid" (click)="save()">Speichern</button>
+        </div>
+    </form>
+</div>

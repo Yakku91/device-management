@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>{{ pageTitle }}</h1>
+        </div>
+        <div class="col-sm">
+            <div class="row">
+                <div class="col-sm">
+                    <span class="align-right">
+                        <button [routerLink]="'/device/details/' + device?.id()" mat-icon-button matTooltip="Details anzeigen" *ngIf="this.activatedRoute.snapshot.params.id">
+                            <mat-icon>preview</mat-icon>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="row" [formGroup]="deviceForm">
+        <div class="col-12 mb-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Bezeichnung</mat-label>
+                <input matInput formControlName="name">
+                <mat-hint>Pflichtfeld</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-12 mb-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Gerät</mat-label>
+                <mat-select formControlName="deviceType">
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let device of deviceTypes" [value]="device">
+                        {{ device }}
+                    </mat-option>
+                </mat-select>
+                <mat-hint>Pflichtfeld</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Standort</mat-label>
+                <input matInput formControlName="location">
+                <mat-hint>Pflichtfeld</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Neusta-Nummer</mat-label>
+                <input matInput formControlName="neustaNumber">
+                <mat-hint>Pflichtfeld</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Seriennummer</mat-label>
+                <input matInput formControlName="serialNumber">
+                <mat-hint>Pflichtfeld</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Airbus-Nummer</mat-label>
+                <input matInput formControlName="airbusNumber">
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <button name="btn-add-device" mat-raised-button (click)="save()"
+                [disabled]="deviceForm.invalid">Speichern</button>
+        </div>
+        <div class="col-6 text-end" *ngIf="!device?.deletedAt">
+            <button name="btn-remove-phone" color="warn" *ngIf="this.activatedRoute.snapshot.params.id" (click)="remove()"
+                mat-raised-button class="btn btn-danger">Löschen</button>
+        </div>
+        <div class="col-6 text-end" *ngIf="device?.deletedAt">
+            <span class="mx-3">Gelöscht am {{ device.deletedAt | date }}</span>
+            <button name="btn-remove-phone" *ngIf="this.activatedRoute.snapshot.params.id" (click)="restore()"
+                mat-raised-button>Wiederherstellen</button>
+        </div>
+    </form>
+</div>

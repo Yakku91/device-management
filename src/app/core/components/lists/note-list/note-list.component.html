@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-between  bg-white">
+    <h3 class="my-2">Anmerkung hinzufügen</h3>
+    <button mat-icon-button (click)="openDialog()" *ngIf="isAdmin || !isCurrentUserDeviceOwner"
+        matTooltip="Anmerkung hinzufügen">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>
+<div *ngFor="let note of notes" class="col-12 mt-3">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title card-h3">{{ note?.title }}</h3>
+            <h5 class="card-subtitle mb-2 text-muted card-h5"> {{ mapToModel(note?.author).name}} | {{ note?.createdAt()
+                | date:'dd.MM.yyyy HH:mm'}}</h5>
+            <p class="card-text card-body-margin">{{ note?.note }}</p>
+            <span *ngIf=" isCurrentEqualTheAuthor(note.author?.id) || isAdmin">
+                <a (click)="openDialog(note)" class="card-link">Ändern</a>
+                <a (click)="remove(note)" class="card-link">Löschen</a>
+            </span>
+        </div>
+    </div>
+</div>
